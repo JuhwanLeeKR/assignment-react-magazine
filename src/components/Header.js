@@ -2,19 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Text, Button } from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { actionCreators as userActions } from '../redux/modules/user';
+
 const Header = (props) => {
-  const [is_login, setIsLogin] = useState(false);
-
-  useEffect(() => {
-    let cookie = getCookie('user_id');
-    console.log(cookie);
-
-    if (cookie) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, []);
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
 
   if (is_login) {
     return (
@@ -31,7 +24,7 @@ const Header = (props) => {
           <Button
             text='로그아웃'
             _onClick={() => {
-              deleteCookie('user_id');
+              dispatch(userActions.logOut({}));
             }}
           ></Button>
         </Grid>

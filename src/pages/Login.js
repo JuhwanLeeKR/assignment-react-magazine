@@ -2,36 +2,30 @@ import React from 'react';
 import { Button, Grid, Input, Text } from '../elements';
 import { setCookie } from '../shared/Cookie';
 
+import { useDispatch } from 'react-redux';
+import { actionCreators as userActions } from '../redux/modules/user';
+
 const Login = (props) => {
-  const [id, setId] = React.useState('');
-  const [pwd, setPwd] = React.useState('');
-
-  const changeId = (e) => {
-    setId(e.target.value);
-  };
-
-  const changePwd = (e) => {
-    setPwd(e.target.value);
-  };
+  const dispatch = useDispatch();
 
   const login = () => {
-    setCookie('user_id', 'Chinchilla', 3);
-    setCookie('user_pwd', 'pwd', 3);
+    dispatch(userActions.loginAction({ user_name: 'Chinchilla' }));
   };
+
   return (
     <React.Fragment>
-      <Grid padding={16}>
+      <Grid padding='16px'>
         <Text type='heading'>로그인 페이지</Text>
       </Grid>
-      <Grid padding={16}>
+      <Grid padding='16px'>
         <Input
-          value={id}
-          onChange={changeId}
+          // value={id}
+          // onChange={changeId}
           placeholder='아이디를 입력하세요.'
         />
         <Input
-          value={pwd}
-          onChange={changePwd}
+          // value={pwd}
+          // onChange={changePwd}
           type='password'
           placeholder='비밀번호를 입력하세요.'
         />
