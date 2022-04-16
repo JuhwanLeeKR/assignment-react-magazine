@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Grid = (props) => {
-  const { is_flex, width, margin, padding, bg, children } = props;
+  const { is_flex, maxwidth, width, margin, padding, bg, children } = props;
 
   const styles = {
     is_flex: is_flex,
+    maxwidth: maxwidth,
     width: width,
     margin: margin,
     padding: padding,
@@ -25,9 +26,11 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
+  maxwidth: false,
 };
 
 const GridBox = styled.div`
+  max-width: ${(props) => props.maxwidth};
   width: ${(props) => props.width};
   height: 100%;
   box-sizing: border-box;
