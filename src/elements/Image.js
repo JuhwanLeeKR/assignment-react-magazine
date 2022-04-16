@@ -12,6 +12,7 @@ const Image = (props) => {
   if (shape === 'circle') {
     return <ImageCircle {...styles}></ImageCircle>;
   }
+
   if (shape === 'rectangle') {
     return (
       <AspectOutter>
@@ -19,14 +20,27 @@ const Image = (props) => {
       </AspectOutter>
     );
   }
-  return <></>;
+
+  return (
+    <React.Fragment>
+      <ImageDefault {...styles}></ImageDefault>
+    </React.Fragment>
+  );
 };
 
 Image.defaultProps = {
   shape: 'circle',
-  src: 'https://mimg.segye.com/content/image/2017/07/22/20170722505000.jpg',
+  src: 'https://mblogthumb-phinf.pstatic.net/MjAxODA4MTRfMTg5/MDAxNTM0MjMxMjc2NDg0.nN09_SoZ3mJwyUmMojQTWIvyFSogw_BzuD9QvY0pXsMg.zj66-K3JIfjREQqTrm3byi1fGtYbv04NBpoQ2vISYhwg.JPEG.luckynjoy/1.jpg?type=w800',
   size: 36,
 };
+
+const ImageDefault = styled.div`
+  --size: ${(props) => props.size}px;
+  width: var(--size);
+  height: var(--size);
+  background-image: url('${(props) => props.src}');
+  background-size: cover;
+`;
 
 const AspectOutter = styled.div`
   width: 100%;

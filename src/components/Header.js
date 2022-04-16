@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Text, Button } from '../elements';
-//import { getCookie, deleteCookie } from '../shared/Cookie';
+import { getCookie, deleteCookie } from '../shared/Cookie';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
@@ -17,26 +17,34 @@ const Header = (props) => {
   const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
   console.log(is_session);
+
   if (is_login && is_session) {
     return (
-      <Grid is_flex padding='4px 16px'>
-        <Grid>
-          <Text margin='0px' size='24px' bold>
-            Magazine
-          </Text>
-        </Grid>
+      <React.Fragment>
+        <Grid is_flex padding='4px 16px'>
+          <Grid>
+            <Text margin='0px' size='24px' bold>
+              헬로
+            </Text>
+          </Grid>
 
-        <Grid is_flex>
-          <Button text='내정보'></Button>
-          <Button text='알림'></Button>
-          <Button
-            text='로그아웃'
-            _onClick={() => {
-              dispatch(userActions.logoutFB());
-            }}
-          ></Button>
+          <Grid is_flex>
+            <Button text='내정보'></Button>
+            <Button
+              text='알림'
+              _onClick={() => {
+                history.push('/noti');
+              }}
+            ></Button>
+            <Button
+              text='로그아웃'
+              _onClick={() => {
+                dispatch(userActions.logoutFB());
+              }}
+            ></Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </React.Fragment>
     );
   }
 
@@ -45,7 +53,7 @@ const Header = (props) => {
       <Grid is_flex padding='4px 16px'>
         <Grid>
           <Text margin='0px' size='24px' bold>
-            Magazine
+            헬로
           </Text>
         </Grid>
 
