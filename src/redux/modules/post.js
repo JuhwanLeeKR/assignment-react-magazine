@@ -199,12 +199,14 @@ const getPostFB = (start = null, size = 3) => {
             },
             { id: doc.id, user_info: {} }
           );
-
           post_list.push(post);
         });
 
-        // 매번 1개를 더 불러오기 때문에 pop()을 실행해 준다.
-        post_list.pop();
+        // 가장 오래된 게시물이 제거되는 예외 처리
+        if (docs.docs.length === size + 1) {
+          // 매번 1개를 더 불러오기 때문에 pop()을 실행해 준다.
+          post_list.pop();
+        }
 
         dispatch(setPost(post_list, paging));
       });
