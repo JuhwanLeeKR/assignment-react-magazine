@@ -8,7 +8,7 @@ const Post = (props) => {
       <Grid>
         <Grid is_flex>
           <Grid is_flex width='100px'>
-            <Image shape='circle' src={props.image_url} />
+            <Image shape='circle' src={props.src} />
             <Text bold>{props.user_info.user_name}</Text>
           </Grid>
           {/* <Grid is_flex></Grid> */}
