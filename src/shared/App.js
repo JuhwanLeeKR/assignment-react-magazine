@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 
 import { apiKey } from './firebase';
+import PostWrite from '../pages/PostWrite';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,10 +40,17 @@ function App() {
           <Route path='/' exact component={PostList} />
           <Route path='/login' exact component={Login} />
           <Route path='/signup' exact component={Signup} />
+          <Route path='/write' exact component={PostWrite} />
         </ConnectedRouter>
       </Grid>
       <Permit>
-        <Button is_float text='+'></Button>
+        <Button
+          is_float
+          text='+'
+          _onClick={() => {
+            history.push('write');
+          }}
+        ></Button>
       </Permit>
     </React.Fragment>
   );
