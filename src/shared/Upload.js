@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../elements';
-import { storage } from './firebase';
 import { actionCreators as imageActions } from '../redux/modules/image';
 
 const Upload = (props) => {
@@ -16,6 +15,16 @@ const Upload = (props) => {
     console.log(e.target.files[0]);
 
     console.log(fileInput.current.files[0]);
+
+    // 미리보기
+    const reader = new FileReader();
+    const file = fileInput.current.files[0];
+
+    reader.readAsDataURL(file);
+    // 읽기가 끝나면 실행된다
+    reader.onloadend = () => {
+      dispatch(imageActions.setPreview(reader.result));
+    };
   };
 
   const uploadFB = () => {
