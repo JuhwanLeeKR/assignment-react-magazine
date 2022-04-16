@@ -22,16 +22,28 @@ const initialState = {
   is_login: false,
 };
 
-const user_initial = {
-  user_name: 'juhwan',
-};
-
 // middleware actions
-const loginAction = (user) => {
+const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
-    console.log(history);
-    dispatch(setUser(user));
-    history.push('/');
+    auth
+      .signInWithEmailAndPassword(id, pwd)
+      .then((user) => {
+        console.log(user);
+        dispatch(
+          setUser({
+            user_name: user.user.displayName,
+            id: id,
+            user_profile: '',
+          })
+        );
+
+        history.push('/');
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 };
 
@@ -92,8 +104,8 @@ export default handleActions(
 const actionCreators = {
   logOut,
   getUser,
-  loginAction,
   signupFB,
+  loginFB,
 };
 
 export { actionCreators };
