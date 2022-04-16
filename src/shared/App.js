@@ -8,7 +8,9 @@ import PostList from '../pages/PostList';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 
+import Permit from './Permit';
 import Header from '../components/Header';
+import { Button } from '../elements';
 import { Grid } from '../elements';
 
 import { useDispatch } from 'react-redux';
@@ -39,6 +41,9 @@ function App() {
           <Route path='/signup' exact component={Signup} />
         </ConnectedRouter>
       </Grid>
+      <Permit>
+        <Button is_float text='+'></Button>
+      </Permit>
     </React.Fragment>
   );
 }
