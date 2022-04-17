@@ -17,9 +17,9 @@ const PostList = (props) => {
   const { history } = props;
 
   React.useEffect(() => {
-    console.log('in list');
-
-    dispatch(postActions.getPostFB());
+    if (post_list.length < 2) {
+      dispatch(postActions.getPostFB());
+    }
   }, []);
 
   return (
