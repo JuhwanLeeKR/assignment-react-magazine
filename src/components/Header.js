@@ -23,7 +23,14 @@ const Header = (props) => {
       <React.Fragment>
         <Grid is_flex padding='4px 16px'>
           <Grid>
-            <Text margin='0px' size='24px' bold>
+            <Text
+              margin='0px'
+              size='24px'
+              bold
+              _onClick={() => {
+                history.push('/');
+              }}
+            >
               Magazine
             </Text>
           </Grid>
@@ -52,7 +59,14 @@ const Header = (props) => {
     <React.Fragment>
       <Grid is_flex padding='4px 16px'>
         <Grid>
-          <Text margin='0px' size='24px' bold>
+          <Text
+            margin='0px'
+            size='24px'
+            bold
+            _onClick={() => {
+              history.push('/');
+            }}
+          >
             Magazine
           </Text>
         </Grid>

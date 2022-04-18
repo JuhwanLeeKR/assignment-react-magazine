@@ -33,8 +33,6 @@ const PostList = (props) => {
           loading={is_loading}
         >
           {post_list.map((p, idx) => {
-            console.log(p);
-
             if (p.user_info.user_id === user_info?.uid) {
               return (
                 <Grid
@@ -58,7 +56,7 @@ const PostList = (props) => {
                     history.push(`/post/${p.id}`);
                   }}
                 >
-                  <Post {...p} />;
+                  <Post {...p} />
                 </Grid>
               );
             }
