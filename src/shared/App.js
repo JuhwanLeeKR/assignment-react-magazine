@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configureStore';
 
+import styled from 'styled-components';
+
 import PostList from '../pages/PostList';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
@@ -34,11 +36,12 @@ function App() {
 
   return (
     <React.Fragment>
-      <Grid
+      <LayoutOuter
         maxwidth='400px'
         margin='0 auto'
         bg='#fff'
         border='0.7px solid #ddd'
+        style={{ minHeight: '100vh' }}
       >
         <Header></Header>
         <ConnectedRouter history={history}>
@@ -50,7 +53,7 @@ function App() {
           <Route path='/post/:id' exact component={PostDetail} />
           <Route path='/noti' exact component={Notification} />
         </ConnectedRouter>
-      </Grid>
+      </LayoutOuter>
       <Permit>
         <Button
           is_float
@@ -63,5 +66,13 @@ function App() {
     </React.Fragment>
   );
 }
+
+const LayoutOuter = styled.div`
+  min-height: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 0.7px solid #ddd;
+`;
 
 export default App;
