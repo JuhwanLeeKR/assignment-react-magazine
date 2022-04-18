@@ -18,11 +18,14 @@ const NotiBadge = (props) => {
     const notiDB = realtime.ref(`noti/${user_id}`);
 
     notiDB.on('value', (snapshot) => {
-      setIsRead(snapshot.val().read);
+      // snapshot.val()가 없을 경우 예외처리
+      if (snapshot.val()) {
+        setIsRead(snapshot.val().read);
+      }
     });
 
     return () => notiDB.off();
-  }, []);
+  }, [user_id]);
 
   return (
     <>
