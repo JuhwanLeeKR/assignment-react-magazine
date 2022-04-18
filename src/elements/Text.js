@@ -2,8 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = (props) => {
-  const { bold, color, size, _onClick, children, margin, is_header, align } =
-    props;
+  const {
+    bold,
+    color,
+    size,
+    _onClick,
+    children,
+    margin,
+    is_header,
+    align,
+    width,
+  } = props;
 
   const styles = {
     bold: bold,
@@ -11,6 +20,7 @@ const Text = (props) => {
     size: size,
     margin: margin,
     align: align,
+    width: width,
   };
 
   if (is_header) {
@@ -35,6 +45,7 @@ Text.defaultProps = {
   size: '14px',
   margin: false,
   _onClick: () => {},
+  width: null,
 };
 
 const P = styled.p`
@@ -43,6 +54,7 @@ const P = styled.p`
   font-weight: ${(props) => (props.bold ? '600' : '400')};
   margin: ${(props) => props.margin};
   cursor: default;
+  width: null;
 `;
 
 const Header = styled.p`

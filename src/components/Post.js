@@ -4,6 +4,8 @@ import { history } from '../redux/configureStore';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { useDispatch } from 'react-redux';
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 const Post = React.memo((props) => {
   const dispatch = useDispatch();
 
@@ -36,10 +38,16 @@ const Post = React.memo((props) => {
         <Grid>
           <Image shape='rectangle' src={props.image_url} />
         </Grid>
-        <Grid padding='16px' is_flex>
-          <Text margin='0px' bold>
-            댓글 {props.comment_cnt}개
-          </Text>
+        <Grid padding='16px'>
+          <Grid is_flex>
+            <Grid is_flex width='100px'>
+              <FavoriteIcon style={{ color: '#8e97af' }} />
+              <Text>좋아요 0개</Text>
+            </Grid>
+            <Text bold style={{ whiteSpace: 'nowrap' }}>
+              댓글 {props.comment_cnt}개
+            </Text>
+          </Grid>
           <Grid is_flex width='100px'>
             {props.is_me && window.location.pathname.includes('/post') && (
               <>
