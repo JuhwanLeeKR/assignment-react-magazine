@@ -35,7 +35,7 @@ const NotiBadge = (props) => {
         invisible={is_read}
         onClick={notiCheck}
       >
-        <NotificationsIcon />
+        <NotificationsIcon style={{ color: '#3c6984', cursor: 'pointer' }} />
       </Badge>
     </>
   );

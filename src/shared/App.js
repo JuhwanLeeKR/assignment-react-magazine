@@ -34,7 +34,12 @@ function App() {
 
   return (
     <React.Fragment>
-      <Grid maxwidth='400px'>
+      <Grid
+        maxwidth='400px'
+        margin='0 auto'
+        bg='#fff'
+        border='0.7px solid #ddd'
+      >
         <Header></Header>
         <ConnectedRouter history={history}>
           <Route path='/' exact component={PostList} />
