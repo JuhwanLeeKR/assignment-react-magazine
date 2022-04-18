@@ -14,18 +14,20 @@ const Signup = (props) => {
   const [user_name, setUserName] = React.useState('');
 
   const signup = () => {
-    if (id === '' || pwd === '' || user_name === '') {
-      window.alert('아이디, 패스워드, 닉네임을 모두 입력해주세요!');
-      return;
-    }
-
     if (!emailCheck(id)) {
       window.alert('이메일 형식이 맞지 않습니다!');
       return;
     }
-
+    if (pwd.length < 4) {
+      window.alert('패스워드가 너무 짧습니다!');
+      return;
+    }
     if (pwd !== pwd_check) {
       window.alert('패스워드와 패스워드 확인이 일치하지 않습니다!');
+      return;
+    }
+    if (pwd.includes(user_name)) {
+      window.alert('비밀번호에 닉네임과 같은 값이 포함되어 있습니다!');
       return;
     }
 
@@ -61,6 +63,7 @@ const Signup = (props) => {
         <Grid padding='16px 0px'>
           <Input
             label='비밀번호'
+            type='password'
             placeholder='비밀번호를 입력해주세요.'
             _onChange={(e) => {
               setPwd(e.target.value);
@@ -71,6 +74,7 @@ const Signup = (props) => {
         <Grid padding='16px 0px'>
           <Input
             label='비밀번호 확인'
+            type='password'
             placeholder='비밀번호를 다시 입력해주세요.'
             _onChange={(e) => {
               setPwdCheck(e.target.value);
@@ -78,7 +82,15 @@ const Signup = (props) => {
           />
         </Grid>
 
-        <Button text='회원가입하기' _onClick={signup}></Button>
+        <Button
+          text='회원가입하기'
+          _onClick={signup}
+          _disabled={
+            id === '' || user_name === '' || pwd === '' || pwd_check === ''
+              ? true
+              : false
+          }
+        ></Button>
       </Grid>
     </React.Fragment>
   );
