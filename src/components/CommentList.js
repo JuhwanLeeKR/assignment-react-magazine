@@ -11,7 +11,7 @@ const CommentList = (props) => {
   const { post_id } = props;
 
   React.useEffect(() => {
-    if (comment_list[post_id]) {
+    if (!comment_list[post_id]) {
       dispatch(commentActions.getCommentFB(post_id));
     }
   }, []);

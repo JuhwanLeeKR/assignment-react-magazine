@@ -52,6 +52,8 @@ const PostList = (props) => {
               return (
                 <Grid
                   key={p.id}
+                  margin={'10px 0'}
+                  bg={'#fff'}
                   _onClick={() => {
                     history.push(`/post/${p.id}`);
                   }}
