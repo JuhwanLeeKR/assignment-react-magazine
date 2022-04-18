@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Text, Button, Image, Input } from '../elements';
 import Upload from '../shared/Upload';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
+import post, { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
 
 const PostWrite = (props) => {
@@ -19,7 +19,10 @@ const PostWrite = (props) => {
 
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
 
-  const [contents, setContents] = React.useState(_post ? _post.contents : '');
+  const [contents, setContents] = useState(_post ? _post.contents : '');
+  const [imgPostion, setImgPosition] = useState(
+    _post ? post.imgPosition : 'top'
+  );
 
   React.useEffect(() => {
     if (is_edit && !_post) {
@@ -36,6 +39,12 @@ const PostWrite = (props) => {
 
   const changeContents = (e) => {
     setContents(e.target.value);
+  };
+
+  const is_checked = (e) => {
+    if (e.target.checked) {
+      setImgPosition(e.target.value);
+    }
   };
 
   const addPost = () => {
@@ -72,7 +81,24 @@ const PostWrite = (props) => {
         </Text>
         <Upload />
       </Grid>
-
+      <input
+        type='radio'
+        value='top'
+        name='imgPosition'
+        onChange={is_checked}
+      />
+      <input
+        type='radio'
+        value='right'
+        name='imgPosition'
+        onChange={is_checked}
+      />
+      <input
+        type='radio'
+        value='left'
+        name='imgPosition'
+        onChange={is_checked}
+      />
       <Grid>
         <Grid padding='16px'>
           <Text margin='0px' size='24px' bold>

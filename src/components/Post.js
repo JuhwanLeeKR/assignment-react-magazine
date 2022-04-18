@@ -32,11 +32,11 @@ const Post = React.memo((props) => {
             <Text>{props.insert_dt}</Text>
           </Grid>
         </Grid>
-        <Grid padding='16px'>
-          <Text>{props.contents}</Text>
-        </Grid>
         <Grid>
           <Image shape='rectangle' src={props.image_url} />
+        </Grid>
+        <Grid padding='16px'>
+          <Text>{props.contents}</Text>
         </Grid>
         <Grid padding='16px'>
           <Grid is_flex>
