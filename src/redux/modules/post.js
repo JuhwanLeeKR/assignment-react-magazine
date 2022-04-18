@@ -211,7 +211,7 @@ const getPostFB = (start = null, size = 3) => {
         dispatch(setPost(post_list, paging));
       });
 
-    return;
+    //return;
   };
 };
 
@@ -251,7 +251,7 @@ export default handleActions(
         draft.list.push(...action.payload.post_list);
         // 중복 제거 처리
         draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => (a.id === cur.id) === -1)) {
+          if (acc.findIndex((a) => a.id === cur.id) === -1) {
             return [...acc, cur];
           } else {
             acc[acc.findIndex((a) => a.id === cur.id)] = cur;
