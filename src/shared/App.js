@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 
 import { apiKey } from './firebase';
+import ScrollToTop from './ScrollTop';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
       >
         <Header></Header>
         <ConnectedRouter history={history}>
+          <ScrollToTop />
           <Route path='/' exact component={PostList} />
           <Route path='/login' exact component={Login} />
           <Route path='/signup' exact component={Signup} />
