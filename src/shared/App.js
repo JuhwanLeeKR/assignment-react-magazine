@@ -24,6 +24,7 @@ import { apiKey } from './firebase';
 
 import ScrollToTop from './ScrollTop';
 import CreateIcon from '@mui/icons-material/Create';
+import { ReactComponent as Vally } from '../assets/Vally.svg';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
 
   return (
     <React.Fragment>
+      <Vally />
       <LayoutOuter
         maxwidth='400px'
         margin='0 auto'
