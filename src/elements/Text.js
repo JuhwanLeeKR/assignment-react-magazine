@@ -55,6 +55,7 @@ const P = styled.p`
   margin: ${(props) => props.margin};
   cursor: default;
   width: null;
+  text-align: ${(props) => props.align};
 `;
 
 const Header = styled.p`

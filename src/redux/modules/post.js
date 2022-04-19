@@ -37,6 +37,7 @@ const initialPost = {
   contents: '',
   comment_cnt: 0,
   insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+  imgPosition: 'top',
 };
 
 const editPostFB = (post_id = null, post = {}) => {
@@ -97,7 +98,7 @@ const editPostFB = (post_id = null, post = {}) => {
   };
 };
 
-const addPostFB = (contents = '') => {
+const addPostFB = (contents = '', imgPosition = 'top') => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection('post');
 
@@ -113,6 +114,7 @@ const addPostFB = (contents = '') => {
       ...initialPost,
       contents: contents,
       insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+      imgPosition,
     };
 
     const _image = getState().image.preview;

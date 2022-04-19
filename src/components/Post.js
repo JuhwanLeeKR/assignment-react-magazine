@@ -19,9 +19,8 @@ const Post = React.memo((props) => {
   };
 
   console.log('렌더링 되었습니다');
-  console.log();
   return (
-    <React.Fragment>
+    <>
       <Grid>
         <Grid is_flex padding='16px'>
           <Grid is_flex width='auto'>
@@ -32,12 +31,42 @@ const Post = React.memo((props) => {
             <Text>{props.insert_dt}</Text>
           </Grid>
         </Grid>
-        <Grid>
-          <Image shape='rectangle' src={props.image_url} />
-        </Grid>
-        <Grid padding='16px'>
-          <Text>{props.contents}</Text>
-        </Grid>
+
+        {props.imgPosition === 'top' && (
+          <>
+            <Grid>
+              <Image shape='rectangle' src={props.image_url} />
+            </Grid>
+            <Grid padding='16px'>
+              <Text>{props.contents}</Text>
+            </Grid>
+          </>
+        )}
+
+        {props.imgPosition === 'left' && (
+          <>
+            <Grid is_flex>
+              <Grid width='200px' height='300px'>
+                <Image shape='left-rectangle' src={props.image_url} />
+              </Grid>
+              <Grid padding='16px'>
+                <Text>{props.contents}</Text>
+              </Grid>
+            </Grid>
+          </>
+        )}
+
+        {props.imgPosition === 'right' && (
+          <Grid is_flex>
+            <Grid padding='16px'>
+              <Text>{props.contents}</Text>
+            </Grid>
+            <Grid width='200px' height='300px'>
+              <Image shape='right-retangle' src={props.image_url} />
+            </Grid>
+          </Grid>
+        )}
+
         <Grid padding='16px'>
           <Grid is_flex>
             <Grid is_flex width='100px'>
@@ -68,7 +97,7 @@ const Post = React.memo((props) => {
           </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 });
 
