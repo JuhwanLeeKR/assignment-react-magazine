@@ -40,7 +40,7 @@ const initialPost = {
   imgPosition: 'top',
 };
 
-const editPostFB = (post_id = null, post = {}) => {
+const editPostFB = (post_id = null, post = {}, imgPosition = 'top') => {
   return function (dispatch, getState, { history }) {
     if (!post_id) {
       console.log('게시물 정보가 없어요!');
@@ -51,6 +51,7 @@ const editPostFB = (post_id = null, post = {}) => {
 
     const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     const _post = getState().post.list[_post_idx];
+    const _post_position = getState().post.list[_post_idx].imgPosition;
 
     console.log(_post);
 
@@ -87,6 +88,7 @@ const editPostFB = (post_id = null, post = {}) => {
               .then((doc) => {
                 dispatch(editPost(post_id, { ...post, image_url: url }));
                 history.replace('/');
+                dispatch(imageActions.setPreview(null));
               });
           })
           .catch((err) => {
@@ -264,8 +266,8 @@ const deletePostFB = (post_id = null) => {
       .delete()
       .then(() => {
         dispatch(deletePost(post_id));
-        window.alert('게시글을 삭제했습니다');
         history.replace('/');
+        window.alert('게시글을 삭제했습니다');
       })
       .catch((err) => {
         console.log('게시글 삭제를 실패하였습니다.', err);

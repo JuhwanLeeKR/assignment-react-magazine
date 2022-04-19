@@ -18,7 +18,7 @@ const Card = (props) => {
       style={{ cursor: 'pointer' }}
     >
       <Grid width='auto' margin='0px 8px 0px 0px'>
-        <Image src={image_url} size={85} shape='square' />
+        <Image src={image_url} size={85} />
       </Grid>
       <Grid>
         <Text>

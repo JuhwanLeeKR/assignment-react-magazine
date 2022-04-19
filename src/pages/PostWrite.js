@@ -84,6 +84,18 @@ const PostWrite = (props) => {
         </Text>
         <Upload />
       </Grid>
+      <Grid>
+        <Grid padding='16px'>
+          <Text margin='0px' size='24px' bold align='center'>
+            IMG Preview🔎
+          </Text>
+        </Grid>
+
+        <Image
+          shape='rectangle'
+          src={preview ? preview : 'http://via.placeholder.com/400x300'}
+        />
+      </Grid>
       <Grid
         padding='3px 8px'
         margin='8px'
@@ -118,18 +130,9 @@ const PostWrite = (props) => {
           onChange={is_checked}
         />
         <label htmlFor='left'>이미지 좌측</label>
-      </Grid>
-      <Grid>
-        <Grid padding='16px'>
-          <Text margin='0px' size='24px' bold align='center'>
-            Preview🔎
-          </Text>
-        </Grid>
-
-        <Image
-          shape='rectangle'
-          src={preview ? preview : 'http://via.placeholder.com/400x300'}
-        />
+        <Text size='12px' margin='4px' color='#bbb'>
+          미선택시 기본 값(상단)으로 설정됩니다.
+        </Text>
       </Grid>
 
       <Grid padding='16px'>
