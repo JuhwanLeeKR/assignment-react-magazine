@@ -20,6 +20,7 @@ const Input = (props) => {
       <Grid>
         {label && <Text margin='0px'>{label}</Text>}
         <ElTextarea
+          maxLength={200}
           rows={10}
           value={value}
           placeholder={placeholder}
@@ -36,6 +37,7 @@ const Input = (props) => {
         {is_submit ? (
           <ElInput
             type={type}
+            maxLength={20}
             placeholder={placeholder}
             onChange={_onChange}
             value={value}
@@ -69,6 +71,7 @@ const ElTextarea = styled.textarea`
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
+  resize: none;
 `;
 
 const ElInput = styled.input`

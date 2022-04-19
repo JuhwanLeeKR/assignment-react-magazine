@@ -9,6 +9,7 @@ import { actionCreators as imageActions } from './image';
 const SET_POST = 'SET_POST';
 const ADD_POST = 'ADD_POST';
 const EDIT_POST = 'EDIT_POST';
+const DELETE_POST = 'DELETE_POST';
 const LOADING = 'LOADING';
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({
@@ -19,6 +20,9 @@ const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
+}));
+const deletePost = createAction(DELETE_POST, (post_id) => ({
+  post_id,
 }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
@@ -33,9 +37,10 @@ const initialPost = {
   contents: '',
   comment_cnt: 0,
   insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+  imgPosition: 'top',
 };
 
-const editPostFB = (post_id = null, post = {}) => {
+const editPostFB = (post_id = null, post = {}, imgPosition = 'top') => {
   return function (dispatch, getState, { history }) {
     if (!post_id) {
       console.log('게시물 정보가 없어요!');
@@ -46,6 +51,7 @@ const editPostFB = (post_id = null, post = {}) => {
 
     const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     const _post = getState().post.list[_post_idx];
+    const _post_position = getState().post.list[_post_idx].imgPosition;
 
     console.log(_post);
 
@@ -82,6 +88,7 @@ const editPostFB = (post_id = null, post = {}) => {
               .then((doc) => {
                 dispatch(editPost(post_id, { ...post, image_url: url }));
                 history.replace('/');
+                dispatch(imageActions.setPreview(null));
               });
           })
           .catch((err) => {
@@ -93,7 +100,7 @@ const editPostFB = (post_id = null, post = {}) => {
   };
 };
 
-const addPostFB = (contents = '') => {
+const addPostFB = (contents = '', imgPosition = 'top') => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection('post');
 
@@ -109,6 +116,7 @@ const addPostFB = (contents = '') => {
       ...initialPost,
       contents: contents,
       insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+      imgPosition,
     };
 
     const _image = getState().image.preview;
@@ -244,6 +252,29 @@ const getOnePostFB = (id) => {
   };
 };
 
+const deletePostFB = (post_id = null) => {
+  return function (dispatch, getState, { history }) {
+    if (!post_id) {
+      console.log('게시글 정보가 없습니다.');
+      return;
+    }
+
+    const postDB = firestore.collection('post');
+
+    postDB
+      .doc(post_id)
+      .delete()
+      .then(() => {
+        dispatch(deletePost(post_id));
+        history.replace('/');
+        window.alert('게시글을 삭제했습니다');
+      })
+      .catch((err) => {
+        console.log('게시글 삭제를 실패하였습니다.', err);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
@@ -276,6 +307,7 @@ export default handleActions(
 
         draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
       }),
+    [DELETE_POST]: (state, action) => produce(state, (draft) => {}),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
@@ -292,6 +324,7 @@ const actionCreators = {
   addPostFB,
   editPostFB,
   getOnePostFB,
+  deletePostFB,
 };
 
 export { actionCreators };

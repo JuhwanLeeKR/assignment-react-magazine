@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Text, Button } from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
+import { ReactComponent as Logo } from '../assets/Logo.svg';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
@@ -12,6 +13,7 @@ import NotiBadge from './NotiBadge';
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  const user_info = useSelector((state) => state.user.user);
 
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
 
@@ -21,29 +23,28 @@ const Header = (props) => {
 
   if (is_login && is_session) {
     return (
-      <React.Fragment>
+      <>
         <Grid is_flex padding='4px 16px'>
           <Grid>
-            <Text
-              margin='0px'
-              size='24px'
-              bold
-              _onClick={() => {
+            <Logo
+              onClick={() => {
                 history.push('/');
               }}
-            >
-              Magazine
-            </Text>
+              style={{ margin: '10px 0 0 0', cursor: 'pointer' }}
+            />
           </Grid>
 
-          <Grid is_flex>
-            <Button text='내정보'></Button>
+          <Grid is_flex width='false'>
             <NotiBadge
               _onClick={() => {
                 history.push('/noti');
               }}
             />
             <Button
+              width='80px'
+              padding='10px 5px'
+              margin='0px 0px 0px 10px'
+              borderRadius='10px'
               text='로그아웃'
               _onClick={() => {
                 dispatch(userActions.logoutFB());
@@ -51,7 +52,16 @@ const Header = (props) => {
             ></Button>
           </Grid>
         </Grid>
-      </React.Fragment>
+        <div
+          style={{
+            textAlign: 'right',
+            margin: '0 10px 8px 0',
+            fontSize: '14px',
+          }}
+        >
+          안녕하세요 {user_info.user_name}님👍
+        </div>
+      </>
     );
   }
 
@@ -59,26 +69,30 @@ const Header = (props) => {
     <React.Fragment>
       <Grid is_flex padding='4px 16px'>
         <Grid>
-          <Text
-            margin='0px'
-            size='24px'
-            bold
-            _onClick={() => {
+          <Logo
+            onClick={() => {
               history.push('/');
             }}
-          >
-            Magazine
-          </Text>
+            style={{ margin: '10px 0 0 0', cursor: 'pointer' }}
+          />
         </Grid>
 
-        <Grid is_flex>
+        <Grid is_flex width='200px'>
           <Button
+            width='80px'
+            padding='10px 2px'
+            margin='0px 0px 0px 10px'
+            borderRadius='10px'
             text='로그인'
             _onClick={() => {
               history.push('/login');
             }}
           ></Button>
           <Button
+            width='80px'
+            padding='10px 5px'
+            margin='0px 0px 0px 4px'
+            borderRadius='10px'
             text='회원가입'
             _onClick={() => {
               history.push('/signup');

@@ -27,10 +27,10 @@ const Upload = (props) => {
     };
   };
 
-  const uploadFB = () => {
-    let image = fileInput.current.files[0];
-    dispatch(imageActions.uploadImageFB(image));
-  };
+  // const uploadFB = () => {
+  //   let image = fileInput.current.files[0];
+  //   dispatch(imageActions.uploadImageFB(image));
+  // };
 
   return (
     <React.Fragment>
@@ -39,8 +39,9 @@ const Upload = (props) => {
         onChange={selectFile}
         ref={fileInput}
         disabled={is_uploading}
+        accept='.gif, .jpg, .png'
       />
-      <Button _onClick={uploadFB}>업로드하기</Button>
+      {/* <Button _onClick={uploadFB}>업로드하기</Button> */}
     </React.Fragment>
   );
 };

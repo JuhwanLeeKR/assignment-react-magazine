@@ -1,11 +1,26 @@
 import React from 'react';
 import { Grid, Image, Text, Button } from '../elements';
 import { history } from '../redux/configureStore';
+import { actionCreators as postActions } from '../redux/modules/post';
+import { useDispatch } from 'react-redux';
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Post = React.memo((props) => {
+  const dispatch = useDispatch();
+
+  const { id } = props;
+
+  const deleteClick = () => {
+    if (!window.confirm('삭제하시겠습니까?')) {
+      return;
+    }
+    dispatch(postActions.deletePostFB(id));
+  };
+
   console.log('렌더링 되었습니다');
   return (
-    <React.Fragment>
+    <>
       <Grid>
         <Grid is_flex padding='16px'>
           <Grid is_flex width='auto'>
@@ -13,46 +28,88 @@ const Post = React.memo((props) => {
             <Text bold>{props.user_info.user_name}</Text>
           </Grid>
           <Grid is_flex width='auto'>
-            {props.is_me && (
-              <Button
-                width='auto'
-                padding='4px'
-                margin='4px'
-                _onClick={() => {
-                  history.push(`/write/${props.id}`);
-                }}
-              >
-                수정
-              </Button>
-            )}
             <Text>{props.insert_dt}</Text>
           </Grid>
         </Grid>
+
+        {props.imgPosition === 'top' && (
+          <>
+            <Grid>
+              <Image shape='rectangle' src={props.image_url} />
+            </Grid>
+            <Grid padding='16px'>
+              <Text>{props.contents}</Text>
+            </Grid>
+          </>
+        )}
+
+        {props.imgPosition === 'left' && (
+          <>
+            <Grid is_flex>
+              <Grid width='200px' height='300px'>
+                <Image shape='left-rectangle' src={props.image_url} />
+              </Grid>
+              <Grid padding='16px'>
+                <Text>{props.contents}</Text>
+              </Grid>
+            </Grid>
+          </>
+        )}
+
+        {props.imgPosition === 'right' && (
+          <Grid is_flex>
+            <Grid padding='16px'>
+              <Text>{props.contents}</Text>
+            </Grid>
+            <Grid width='200px' height='300px'>
+              <Image shape='right-retangle' src={props.image_url} />
+            </Grid>
+          </Grid>
+        )}
+
         <Grid padding='16px'>
-          <Text>{props.contents}</Text>
-        </Grid>
-        <Grid>
-          <Image shape='rectangle' src={props.image_url} />
-        </Grid>
-        <Grid padding='16px'>
-          <Text margin='0px' bold>
-            댓글 {props.comment_cnt}개
-          </Text>
+          <Grid is_flex>
+            <Grid is_flex width='100px'>
+              <FavoriteIcon style={{ color: '#8e97af' }} />
+              <Text>좋아요 0개</Text>
+            </Grid>
+            <Text bold style={{ whiteSpace: 'nowrap' }}>
+              댓글 {props.comment_cnt}개
+            </Text>
+          </Grid>
+          <Grid is_flex width='100px'>
+            {props.is_me && window.location.pathname.includes('/post') && (
+              <>
+                <Button
+                  padding='5px'
+                  margin='4px'
+                  _onClick={() => {
+                    history.push(`/write/${props.id}`);
+                  }}
+                >
+                  수정
+                </Button>
+                <Button padding='5px' margin='4px' _onClick={deleteClick}>
+                  삭제
+                </Button>
+              </>
+            )}
+          </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 });
 
 Post.defaultProps = {
   user_info: {
-    user_name: 'mean0',
-    user_profile: 'https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg',
+    user_name: 'juhwan',
+    user_profile: '',
   },
-  image_url: 'https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg',
-  contents: '고양이네요!',
-  comment_cnt: 10,
-  insert_dt: '2021-02-27 10:00:00',
+  image_url: '',
+  contents: 'none',
+  comment_cnt: 0,
+  insert_dt: '2022-04-18 10:00:00',
   is_me: false,
 };
 

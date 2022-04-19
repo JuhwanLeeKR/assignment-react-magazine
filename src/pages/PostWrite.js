@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Text, Button, Image, Input } from '../elements';
 import Upload from '../shared/Upload';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
+import post, { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
+import { textAlign } from '@mui/system';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,10 @@ const PostWrite = (props) => {
 
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
 
-  const [contents, setContents] = React.useState(_post ? _post.contents : '');
+  const [contents, setContents] = useState(_post ? _post.contents : '');
+  const [imgPosition, setImgPosition] = useState(
+    _post ? post.imgPosition : 'top'
+  );
 
   React.useEffect(() => {
     if (is_edit && !_post) {
@@ -38,12 +42,20 @@ const PostWrite = (props) => {
     setContents(e.target.value);
   };
 
+  const is_checked = (e) => {
+    if (e.target.checked) {
+      setImgPosition(e.target.value);
+    }
+  };
+
   const addPost = () => {
-    dispatch(postActions.addPostFB(contents));
+    dispatch(postActions.addPostFB(contents, imgPosition));
   };
 
   const editPost = () => {
-    dispatch(postActions.editPostFB(post_id, { contents: contents }));
+    dispatch(
+      postActions.editPostFB(post_id, { contents: contents, imgPosition })
+    );
   };
 
   if (!is_login) {
@@ -67,16 +79,15 @@ const PostWrite = (props) => {
   return (
     <React.Fragment>
       <Grid padding='16px'>
-        <Text margin='0px' size='36px' bold>
-          {is_edit ? '게시글 수정' : '게시글 작성'}
+        <Text margin='0px 0px 8px 0px' size='24px' bold>
+          {is_edit ? '수정이 필요하신가요?' : '게시글을 작성해주세요!'}
         </Text>
         <Upload />
       </Grid>
-
       <Grid>
         <Grid padding='16px'>
-          <Text margin='0px' size='24px' bold>
-            미리보기
+          <Text margin='0px' size='24px' bold align='center'>
+            IMG Preview🔎
           </Text>
         </Grid>
 
@@ -84,6 +95,44 @@ const PostWrite = (props) => {
           shape='rectangle'
           src={preview ? preview : 'http://via.placeholder.com/400x300'}
         />
+      </Grid>
+      <Grid
+        padding='3px 8px'
+        margin='8px'
+        width=''
+        border='1.4px solid #ccc'
+        bg='#fafafa'
+      >
+        <Text margin='2px 0px 8px 0px' size='20px'>
+          레이아웃을 선택해주세요✨
+        </Text>
+        <input
+          type='radio'
+          value='top'
+          id='top'
+          name='imgPosition'
+          onChange={is_checked}
+        />
+        <label htmlFor='top'>이미지 상단</label>
+        <input
+          type='radio'
+          value='right'
+          id='right'
+          name='imgPosition'
+          onChange={is_checked}
+        />
+        <label htmlFor='right'>이미지 우측</label>
+        <input
+          type='radio'
+          value='left'
+          id='left'
+          name='imgPosition'
+          onChange={is_checked}
+        />
+        <label htmlFor='left'>이미지 좌측</label>
+        <Text size='12px' margin='4px' color='#bbb'>
+          미선택시 기본 값(상단)으로 설정됩니다.
+        </Text>
       </Grid>
 
       <Grid padding='16px'>
@@ -98,9 +147,17 @@ const PostWrite = (props) => {
 
       <Grid padding='16px'>
         {is_edit ? (
-          <Button text='게시글 수정' _onClick={editPost}></Button>
+          <Button
+            text='게시글 수정'
+            _onClick={editPost}
+            _disabled={!preview || contents === '' ? true : false}
+          ></Button>
         ) : (
-          <Button text='게시글 작성' _onClick={addPost}></Button>
+          <Button
+            text='게시글 작성'
+            _onClick={addPost}
+            _disabled={!preview || contents === '' ? true : false}
+          ></Button>
         )}
       </Grid>
     </React.Fragment>

@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import React from 'react';
 
 const Image = (props) => {
-  const { shape, src, size } = props;
+  const { shape, src, size, height } = props;
 
   const styles = {
     src: src,
     size: size,
+    height: height,
   };
 
   if (shape === 'circle') {
@@ -21,10 +22,17 @@ const Image = (props) => {
     );
   }
 
+  if (shape === 'right-retangle' || 'left-rectangle') {
+    return (
+      <AspectOutter>
+        <SideRectangle {...styles}></SideRectangle>
+      </AspectOutter>
+    );
+  }
   return (
-    <React.Fragment>
+    <>
       <ImageDefault {...styles}></ImageDefault>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -40,11 +48,22 @@ const ImageDefault = styled.div`
   height: var(--size);
   background-image: url('${(props) => props.src}');
   background-size: cover;
+  background-position: center;
 `;
 
 const AspectOutter = styled.div`
-  width: 100%;
-  min-width: 250px;
+  height: 100%;
+  min-width: 200px;
+`;
+
+const SideRectangle = styled.div`
+  position: relative;
+  padding-top: 150%;
+  overflow: hidden;
+  background-image: url('${(props) => props.src}');
+  background-size: cover;
+  background-position: center;
+  height: ${(props) => props.height};
 `;
 
 const AspectInner = styled.div`
@@ -53,6 +72,8 @@ const AspectInner = styled.div`
   overflow: hidden;
   background-image: url('${(props) => props.src}');
   background-size: cover;
+  background-position: center;
+  height: ${(props) => props.height};
 `;
 
 const ImageCircle = styled.div`
@@ -64,6 +85,7 @@ const ImageCircle = styled.div`
   background-image: url('${(props) => props.src}');
   background-size: cover;
   margin: 4px;
+  background-position: center;
 `;
 
 export default Image;
