@@ -21,7 +21,9 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 
 import { apiKey } from './firebase';
+
 import ScrollToTop from './ScrollTop';
+import CreateIcon from '@mui/icons-material/Create';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,11 +61,12 @@ function App() {
       <Permit>
         <Button
           is_float
-          text='+'
           _onClick={() => {
             history.push('/write');
           }}
-        ></Button>
+        >
+          <CreateIcon />
+        </Button>
       </Permit>
     </React.Fragment>
   );

@@ -72,19 +72,22 @@ const ElButton = styled.button`
 const FloatButton = styled.button`
   width: 50px;
   height: 50px;
-  background-color: #212121;
+  background-color: #343434;
   color: #ffffff;
-  box-sizing: border-box;
   font-size: 36px;
   font-weight: 800;
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 50px;
   right: 16px;
-  text-align: center;
-  vertical-align: middle;
   border: none;
   border-radius: 50px;
   cursor: pointer;
+  &:hover {
+    background-color: #004e89;
+  }
 `;
 
 export default Button;
