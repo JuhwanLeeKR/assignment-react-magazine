@@ -140,7 +140,7 @@ const PostWrite = (props) => {
           value={contents}
           _onChange={changeContents}
           label='게시글 내용'
-          placeholder='게시글 작성'
+          placeholder='내용을 입력해주세요😊'
           multiLine
         />
       </Grid>
@@ -148,13 +148,13 @@ const PostWrite = (props) => {
       <Grid padding='16px'>
         {is_edit ? (
           <Button
-            text='게시글 수정'
+            text='수정하기'
             _onClick={editPost}
             _disabled={!preview || contents === '' ? true : false}
           ></Button>
         ) : (
           <Button
-            text='게시글 작성'
+            text='추가하기'
             _onClick={addPost}
             _disabled={!preview || contents === '' ? true : false}
           ></Button>
