@@ -59,7 +59,7 @@ const Header = (props) => {
             fontSize: '14px',
           }}
         >
-          안녕하세요 {user_info.user_name}님👍
+          안녕하세요 {user_info.user_name}님🙌
         </div>
       </>
     );

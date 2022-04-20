@@ -266,7 +266,7 @@ const deletePostFB = (post_id = null) => {
       .delete()
       .then(() => {
         dispatch(deletePost(post_id));
-        history.replace('/');
+        window.location.href = '/';
         window.alert('게시글을 삭제했습니다');
       })
       .catch((err) => {
