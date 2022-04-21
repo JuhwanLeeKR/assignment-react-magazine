@@ -1,17 +1,8 @@
 import styled from 'styled-components';
 
 const Text = (props) => {
-  const {
-    bold,
-    color,
-    size,
-    _onClick,
-    children,
-    margin,
-    is_header,
-    align,
-    width,
-  } = props;
+  const { bold, color, size, _onClick, children, margin, align, width, wrap } =
+    props;
 
   const styles = {
     bold: bold,
@@ -20,6 +11,7 @@ const Text = (props) => {
     margin: margin,
     align: align,
     width: width,
+    wrap: wrap,
   };
 
   return (
@@ -33,7 +25,7 @@ Text.defaultProps = {
   children: null,
   bold: false,
   color: '#222831',
-  size: '14px',
+  size: '16px',
   margin: false,
   _onClick: () => {},
   width: null,
@@ -47,6 +39,7 @@ const P = styled.p`
   cursor: default;
   width: null;
   text-align: ${(props) => props.align};
+  white-space: ${(props) => (props.wrap ? 'wrap' : 'nowrap')};
 `;
 
 export default Text;

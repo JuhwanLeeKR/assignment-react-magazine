@@ -5,6 +5,8 @@ const PostList = () => {
     <>
       <div>PostList page 입니다.</div>
       <Post />
+      <Post />
+      <Post />
     </>
   );
 };

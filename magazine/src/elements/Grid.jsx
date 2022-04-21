@@ -1,8 +1,10 @@
+import { useIsFocusVisible } from '@mui/material';
 import styled from 'styled-components';
 
 const Grid = (props) => {
   const {
     is_flex,
+    flex,
     maxwidth,
     width,
     margin,
@@ -13,10 +15,12 @@ const Grid = (props) => {
     _onClick,
     border,
     height,
+    display,
   } = props;
 
   const styles = {
     is_flex: is_flex,
+    flex: flex,
     maxwidth: maxwidth,
     width: width,
     margin: margin,
@@ -25,6 +29,7 @@ const Grid = (props) => {
     center: center,
     border: border,
     height: height,
+    display: display,
   };
   return (
     <>
@@ -38,6 +43,7 @@ const Grid = (props) => {
 Grid.defaultProps = {
   children: null,
   is_flex: false,
+  flex: false,
   width: '100%',
   height: '100%',
   padding: false,
@@ -53,7 +59,6 @@ const GridBox = styled.div`
   max-width: ${(props) => props.maxwidth};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')};
   ${(props) => (props.bg ? `background-color: ${props.bg};` : '')};
@@ -61,6 +66,7 @@ const GridBox = styled.div`
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
       : ''};
+  ${(props) => (props.flex ? `display: flex; align-items: center;` : '')};
   ${(props) => (props.center ? `text-align: center;` : '')};
   border: ${(props) => props.border};
 `;
