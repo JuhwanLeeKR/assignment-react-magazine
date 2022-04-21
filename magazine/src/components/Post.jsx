@@ -1,4 +1,4 @@
-import { Grid, Text, Button } from '../elements';
+import { Grid, Text, Button, UserIcon } from '../elements';
 import styled from 'styled-components';
 import { apis } from '../shared/axios';
 import { Image } from '../elements';
@@ -17,7 +17,7 @@ const Post = (props) => {
       <PostWrapper>
         <Grid is_flex padding='10px'>
           <Grid flex>
-            <Image shape='circle' />
+            <UserIcon />
             <p>닉네임</p>
           </Grid>
           <Text>2022-04-21 15:57:00</Text>
