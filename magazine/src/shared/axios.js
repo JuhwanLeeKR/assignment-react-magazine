@@ -13,7 +13,7 @@ export const apis = {
   postEdit: () => {},
   postDelete: (postId) => api.delete(`/api/post/${postId}`),
   // like
-  like: (postId) => api.patch(`/api/posts/${postId}/like`),
+  like: (postId) => api.put(`/api/posts/${postId}/like`),
   // comment
   commentList: (postId) => api.get(`/api/posts/${postId}/comments`),
   commentWrite: (postId, content) =>
