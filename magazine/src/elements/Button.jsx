@@ -11,6 +11,7 @@ const Button = (props) => {
     padding,
     borderRadius,
     _disabled,
+    size,
   } = props;
 
   if (is_float) {
@@ -26,6 +27,7 @@ const Button = (props) => {
     width: width,
     padding: padding,
     borderRadius: borderRadius,
+    size: size,
   };
 
   return (
@@ -47,6 +49,7 @@ Button.defaultProps = {
   padding: '12px 0px',
   borderRadius: false,
   _disabled: false,
+  size: '16px',
 };
 
 const ElButton = styled.button`
@@ -59,6 +62,7 @@ const ElButton = styled.button`
   padding: ${(props) => props.padding};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')};
   border-radius: ${(props) => props.borderRadius};
+  font-size: ${(props) => props.size};
   cursor: pointer;
 
   &:disabled {

@@ -52,10 +52,11 @@ const GlobalStyle = createGlobalStyle`
 
 const LayoutOutter = styled.div`
   min-height: 100vh;
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
-  background-color: #ccc;
+  background-color: rgba(255, 255, 255, 0.6);
   border: 0.7px solid #ddd;
+  height: 100%;
 `;
 
 export default App;
