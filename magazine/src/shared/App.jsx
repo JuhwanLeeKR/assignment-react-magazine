@@ -42,7 +42,9 @@ const GlobalStyle = createGlobalStyle`
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  }
+  -ms-overflow-style: none;
+  } ::-webkit-scrollbar { display: none; }
+  
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -52,10 +54,11 @@ const GlobalStyle = createGlobalStyle`
 
 const LayoutOutter = styled.div`
   min-height: 100vh;
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
-  background-color: #ccc;
+  background-color: rgba(255, 255, 255, 0.6);
   border: 0.7px solid #ddd;
+  height: 100%;
 `;
 
 export default App;

@@ -1,4 +1,6 @@
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import { Button, Text } from '../elements';
 
 const Signup = () => {
   const {
@@ -8,9 +10,6 @@ const Signup = () => {
     formState: { errors },
     setError,
   } = useForm();
-
-  const onSubmit = (data) => console.log(data);
-  //console.log(formState.errors);
 
   // 유효성 검사 함수
   const onValid = (data) => {
@@ -30,13 +29,12 @@ const Signup = () => {
     console.log(data);
   };
   return (
-    <>
-      <form
-        style={{ display: 'flex', flexDirection: 'column' }}
-        onSubmit={handleSubmit(onValid)}
-      >
-        {/* register your input into the hook by invoking the "register" function */}
-        <input
+    <FormWrapper>
+      <Text size='30px' align='center' margin='0px 0px 20px 0px'>
+        안녕하세요🖐️
+      </Text>
+      <FormLayout onSubmit={handleSubmit(onValid)}>
+        <InputLayout
           {...register('email', {
             required: '이메일을 입력해주세요.',
             pattern: {
@@ -47,8 +45,8 @@ const Signup = () => {
           })}
           placeholder='Email'
         />
-        <span>{errors?.email?.message}</span>
-        <input
+        <ErrorMessage>{errors?.email?.message}</ErrorMessage>
+        <InputLayout
           {...register('nickname', {
             required: '닉네임을 입력해주세요.',
             minLength: {
@@ -58,8 +56,8 @@ const Signup = () => {
           })}
           placeholder='Nickname'
         />
-        <span>{errors?.nickname?.message}</span>
-        <input
+        <ErrorMessage>{errors?.nickname?.message}</ErrorMessage>
+        <InputLayout
           {...register('password', {
             required: '비밀번호를 입력해주세요.',
             minLength: {
@@ -68,9 +66,10 @@ const Signup = () => {
             },
           })}
           placeholder='Password'
+          type='password'
         />
-        <span>{errors?.password?.message}</span>
-        <input
+        <ErrorMessage>{errors?.password?.message}</ErrorMessage>
+        <InputLayout
           {...register('passwordConfirm', {
             required: '비밀번호를 다시 한번 입력해주세요.',
             minLength: {
@@ -79,16 +78,42 @@ const Signup = () => {
             },
           })}
           placeholder='Password Confirm'
+          type='password'
         />
-        <span>{errors?.passwordConfirm?.message}</span>
-
-        {/* {errors.exampleRequired && <span>This field is required</span>} */}
-
-        {/* <input type='submit' /> */}
-        <button>Add</button>
-      </form>
-    </>
+        <ErrorMessage>{errors?.passwordConfirm?.message}</ErrorMessage>
+        {/* <InputLayout type='submit' /> */}
+        <Button>회원가입 하기</Button>
+      </FormLayout>
+    </FormWrapper>
   );
 };
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80vh;
+`;
+const FormLayout = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+`;
+const InputLayout = styled.input`
+  margin-bottom: 10px;
+  height: 40px;
+  font-size: 1.2rem;
+  padding: 10px;
+  &:focus {
+    outline: #07f auto 1px;
+    outline-color: #07f;
+    outline-style: auto;
+    outline-width: 1px;
+  }
+`;
+const ErrorMessage = styled.span`
+  margin-bottom: 10px;
+  color: #ff3300;
+`;
 
 export default Signup;
