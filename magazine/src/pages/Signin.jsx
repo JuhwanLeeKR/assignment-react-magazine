@@ -1,23 +1,28 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Text } from '../elements';
+import { signinDB } from '../redux/modules/user';
 
 const Signin = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-    setError,
   } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => console.log(data);
+  const submitHandler = ({ email, password }) => {
+    dispatch(signinDB({ email, password }));
+  };
   return (
     <FormWrapper>
       <Text size='30px' align='center' margin='0px 0px 20px 0px'>
         로그인 페이지
       </Text>
-      <FormLayout onSubmit={handleSubmit(onSubmit)}>
+      <FormLayout onSubmit={handleSubmit(submitHandler)}>
         <InputLayout
           {...register('email', { required: '이메일을 입력해주세요' })}
           placeholder='Email'
@@ -26,6 +31,7 @@ const Signin = () => {
         <InputLayout
           {...register('password', { required: '비밀번호를 입력해주세요' })}
           placeholder='Password'
+          type='password'
         />
         <ErrorMessage>{errors?.password?.message}</ErrorMessage>
 

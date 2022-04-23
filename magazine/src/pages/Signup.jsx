@@ -17,12 +17,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   // 유효성 검사 함수
-  const submitHandler = async ({
-    email,
-    nickname,
-    password,
-    passwordConfirm,
-  }) => {
+  const submitHandler = ({ email, nickname, password, passwordConfirm }) => {
     if (password !== passwordConfirm) {
       setError(
         'passwordConfirm',
@@ -38,9 +33,6 @@ const Signup = () => {
       );
       return;
     }
-    // console.log(email);
-    // console.log(nickname);
-    // console.log(password);
     dispatch(signupDB({ email, nickname, password }));
   };
   return (

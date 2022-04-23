@@ -15,6 +15,25 @@ export const signupDB = createAsyncThunk(
   }
 );
 
+export const signinDB = createAsyncThunk(
+  'user/signin',
+  async (data, thunkAPI) => {
+    try {
+      await apis.signin(data).then((response) => {
+        const {
+          data: { ok },
+        } = response;
+        console.log(ok);
+      });
+
+      return { ok };
+    } catch (err) {
+      alert(thunkAPI.rejectWithValue(err.response.data).payload.message);
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const user = createSlice({
   name: 'userReducer',
   initialState: {
