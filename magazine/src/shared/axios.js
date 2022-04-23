@@ -2,8 +2,9 @@ import { getTokenFromCookie } from './cookie';
 import axios from 'axios';
 
 const api = axios.create({
-  //baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
-  baseURL: import.meta.env.VITE_API_BASE_URL_KWS,
+  // baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
+  // baseURL: import.meta.env.VITE_API_BASE_URL_KWS,
+  baseURL: import.meta.env.VITE_API_BASE_URL_JHY,
 });
 
 export const apis = {
