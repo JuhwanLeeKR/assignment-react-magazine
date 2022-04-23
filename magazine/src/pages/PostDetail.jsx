@@ -1,7 +1,9 @@
+import Post from '../components/Post';
+
 const PostDetail = () => {
   return (
     <>
-      <div>PostDetail page 입니다.</div>
+      <Post />
     </>
   );
 };

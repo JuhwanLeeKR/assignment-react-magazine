@@ -25,7 +25,7 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/write' element={<PostWrite />} />
-          <Route path='/write/:post_id' element={<PostDetail />} />
+          <Route path='/post/detail' element={<PostDetail />} />
           <Route path='/noti' element={<Notification />} />
         </Routes>
       </LayoutOutter>
