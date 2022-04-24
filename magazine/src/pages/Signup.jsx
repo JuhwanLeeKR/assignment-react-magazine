@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Text } from '../elements';
+import { signupDB } from '../redux/modules/user';
 
 const Signup = () => {
   const {
@@ -10,36 +13,39 @@ const Signup = () => {
     formState: { errors },
     setError,
   } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 유효성 검사 함수
-  const onValid = (data) => {
-    if (data.password !== data.passwordConfirm) {
+  const submitHandler = ({ email, nickname, password, passwordConfirm }) => {
+    if (password !== passwordConfirm) {
       setError(
         'passwordConfirm',
         { message: '비밀번호와 비밀번호 확인이 일치하지 않습니다.' },
         { shouldFocus: true }
       );
-    } else if (data.password.includes(data.nickname)) {
+      return;
+    } else if (password.includes(nickname)) {
       setError(
         'password',
         { message: '비밀번호에 닉네임이 포함되어 있습니다.' },
         { shouldFocus: true }
       );
+      return;
     }
-    console.log(data);
+    dispatch(signupDB({ email, nickname, password }));
   };
   return (
     <FormWrapper>
       <Text size='30px' align='center' margin='0px 0px 20px 0px'>
         안녕하세요🖐️
       </Text>
-      <FormLayout onSubmit={handleSubmit(onValid)}>
+      <FormLayout onSubmit={handleSubmit(submitHandler)}>
         <InputLayout
           {...register('email', {
             required: '이메일을 입력해주세요.',
             pattern: {
-              value:
-                /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-z])*.([a-zA-Z])*/,
+              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
               message: '올바른 형식의 이메일을 입력해주세요.',
             },
           })}
