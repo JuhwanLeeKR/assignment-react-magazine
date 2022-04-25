@@ -2,9 +2,26 @@ import { getTokenFromCookie } from './cookie';
 import axios from 'axios';
 
 const api = axios.create({
-  // baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
+  baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
   // baseURL: import.meta.env.VITE_API_BASE_URL_KWS,
-  baseURL: import.meta.env.VITE_API_BASE_URL_JHY,
+  // baseURL: import.meta.env.VITE_API_BASE_URL_JHY,
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    Accept: 'application/json',
+    // Authorization: '',
+  },
+});
+
+const setHeaderAuthorization = (token) => {
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
+
+api.interceptors.request.use((config) => {
+  const token = getTokenFromCookie();
+  token && setHeaderAuthorization(token);
+  // console.log(api.defaults);
+  // console.log(token);
+  return config;
 });
 
 export const apis = {

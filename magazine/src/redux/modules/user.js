@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apis } from '../../shared/axios';
+import { setCookie } from '../../shared/cookie';
 
 export const signupDB = createAsyncThunk(
   'user/signup',
@@ -23,10 +24,10 @@ export const signinDB = createAsyncThunk(
         const {
           data: { ok },
         } = response;
-        console.log(ok);
+        //console.log(response.data.token);
+        setCookie(response.data.token);
+        return { ok };
       });
-
-      return { ok };
     } catch (err) {
       alert(thunkAPI.rejectWithValue(err.response.data).payload.message);
       return thunkAPI.rejectWithValue(err.response.data);
