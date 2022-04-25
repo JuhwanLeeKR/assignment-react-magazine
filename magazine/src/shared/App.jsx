@@ -1,5 +1,7 @@
-import { Route, Routes } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import reset from 'styled-reset';
 import styled from 'styled-components';
 
@@ -13,7 +15,24 @@ import { ReactComponent as Vally } from '../assets/Vally.svg';
 
 import Header from '../components/Header';
 
+import { auth } from '../redux/modules/user';
+import { getTokenFromCookie } from '../shared/cookie';
+
 function App() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isToken = getTokenFromCookie();
+
+  const checkAuth = useCallback(() => {
+    dispatch(auth());
+  });
+
+  useEffect(() => {
+    if (isToken) {
+      checkAuth();
+    }
+  }, [isToken]);
+
   return (
     <>
       <GlobalStyle />

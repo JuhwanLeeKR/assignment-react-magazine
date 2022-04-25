@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Text } from '../elements';
-import { signinDB } from '../redux/modules/user';
+import { signin } from '../redux/modules/user';
+
+import { getTokenFromCookie } from '../shared/cookie';
 
 const Signin = () => {
   const {
@@ -13,9 +15,19 @@ const Signin = () => {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = getTokenFromCookie('token');
+  const isLogin = useSelector((state) => state);
+
+  if (token) {
+    window.alert('이미 로그인이 되어있습니다.');
+    console.log(isLogin);
+    // navigate('/', { replace: true });
+  }
 
   const submitHandler = ({ email, password }) => {
-    dispatch(signinDB({ email, password }));
+    dispatch(signin({ email, password })).then(() => {
+      navigate('/');
+    });
   };
   return (
     <FormWrapper>

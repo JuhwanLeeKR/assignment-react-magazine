@@ -19,7 +19,7 @@ const setHeaderAuthorization = (token) => {
 api.interceptors.request.use((config) => {
   const token = getTokenFromCookie();
   token && setHeaderAuthorization(token);
-  // console.log(api.defaults);
+  //console.log(api.defaults);
   // console.log(token);
   return config;
 });
@@ -45,28 +45,3 @@ export const apis = {
   signin: (userData) => api.post('/api/users/signin', userData),
   auth: () => api.get('api/users/auth'),
 };
-
-// // api안에 넣어야하는지?
-// headers: {
-//   'content-type': 'application/json;charset=UTF-8',
-//   Accept: 'application/json',
-// },
-
-// // 인스턴스를 만든 후 기본 값 변경하기
-// const setHeaderAuthorization = (token) => {
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-// };
-
-// const Axios = () => {
-//   const token = getTokenFromCookie();
-//   token && setHeaderAuthorization(token);
-//   return axios;
-// };
-
-// // 인스턴스를 생성할때 config 기본값 설정하기
-// const instance = axios.create({
-//   baseURL: 'https://api.example.com'
-// });
-
-// // 인스턴스를 만든 후 기본값 변경하기
-// instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;

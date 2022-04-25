@@ -6,7 +6,6 @@ export const signupDB = createAsyncThunk(
   'user/signup',
   async (data, thunkAPI) => {
     try {
-      //console.log('data확인', data);
       await apis.signup(data);
       return;
     } catch (err) {
@@ -16,7 +15,7 @@ export const signupDB = createAsyncThunk(
   }
 );
 
-export const signinDB = createAsyncThunk(
+export const signin = createAsyncThunk(
   'user/signin',
   async (data, thunkAPI) => {
     try {
@@ -24,7 +23,7 @@ export const signinDB = createAsyncThunk(
         const {
           data: { ok },
         } = response;
-        //console.log(response.data.token);
+        console.log(response);
         setCookie(response.data.token);
         return { ok };
       });
@@ -34,6 +33,23 @@ export const signinDB = createAsyncThunk(
     }
   }
 );
+
+export const auth = createAsyncThunk('user/auth', async (_, thunkAPI) => {
+  try {
+    const response = await apis.auth();
+    console.log(response);
+    const user = {
+      // user_id: 'string',
+      // email: 'string',
+      // nickname: 'string',
+      // role: 'number',
+    };
+    return user;
+  } catch (err) {
+    console.log(thunkAPI.rejectWithValue());
+    return thunkAPI.rejectWithValue(err.response.message);
+  }
+});
 
 const user = createSlice({
   name: 'userReducer',
