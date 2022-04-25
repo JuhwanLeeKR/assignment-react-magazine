@@ -6,7 +6,9 @@ import svgrPlugin from 'vite-plugin-svgr';
 export default defineConfig({
   server: {
     proxy: {
-      '*': 'http://146.56.187.171/',
+      '/api': {
+        target: 'http://146.56.187.171',
+      },
     },
   },
   plugins: [

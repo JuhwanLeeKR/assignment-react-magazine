@@ -24,7 +24,7 @@ export const signin = createAsyncThunk(
           data: { ok },
         } = response;
         console.log(response);
-        setCookie(response.data.token);
+        //setCookie(response.data.token);
         return { ok };
       });
     } catch (err) {
