@@ -21,7 +21,7 @@ export const signin = createAsyncThunk(
     try {
       await apis.signin(data).then((response) => {
         console.log(response);
-        navigate('/');
+        navigate('/', { replace: true });
         alert('로그인 완료!');
       });
     } catch (err) {
