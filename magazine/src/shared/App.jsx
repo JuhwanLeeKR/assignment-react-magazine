@@ -22,16 +22,12 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isToken = getTokenFromCookie();
+  const user = useSelector((state) => state.user);
 
-  const checkAuth = useCallback(() => {
-    dispatch(auth());
-  });
-
+  console.log(user);
   useEffect(() => {
-    if (isToken) {
-      checkAuth();
-    }
-  }, [isToken]);
+    isToken && dispatch(auth());
+  }, [isToken, dispatch]);
 
   return (
     <>

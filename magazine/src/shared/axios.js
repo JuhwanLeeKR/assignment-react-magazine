@@ -19,7 +19,7 @@ const setHeaderAuthorization = (token) => {
 api.interceptors.request.use((config) => {
   const token = getTokenFromCookie();
   token && setHeaderAuthorization(token);
-  //console.log(api.defaults);
+  console.log(api.defaults);
   // console.log(token);
   return config;
 });
@@ -43,5 +43,10 @@ export const apis = {
   // user
   signup: (userData) => api.post('/api/users/signup', userData),
   signin: (userData) => api.post('/api/users/signin', userData),
-  auth: () => api.get('api/users/auth'),
+  auth: (token) =>
+    api.get('api/users/auth', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };

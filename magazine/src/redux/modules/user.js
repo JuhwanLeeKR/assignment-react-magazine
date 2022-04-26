@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apis } from '../../shared/axios';
+import { getTokenFromCookie } from '../../shared/cookie';
+
+const initialState = {
+  email: null,
+  nickname: null,
+  isLogin: false,
+  isLoading: false,
+};
 
 export const signupDB = createAsyncThunk(
   'user/signup',
@@ -17,10 +25,10 @@ export const signupDB = createAsyncThunk(
 export const signin = createAsyncThunk(
   'user/signin',
   async ({ data, navigate }, thunkAPI) => {
-    console.log(data, navigate);
+    //console.log(data, navigate);
     try {
       await apis.signin(data).then((response) => {
-        console.log(response);
+        //console.log(response);
         navigate('/', { replace: true });
         alert('로그인 완료!');
       });
@@ -33,36 +41,61 @@ export const signin = createAsyncThunk(
 
 export const auth = createAsyncThunk('user/auth', async (_, thunkAPI) => {
   try {
-    const response = await apis.auth();
-    console.log(response);
-    const user = {
-      // user_id: 'string',
-      // email: 'string',
-      // nickname: 'string',
-      // role: 'number',
-    };
-    return user;
+    const token = getTokenFromCookie();
+    await apis.auth(token).then((response) => {
+      console.log(response);
+      const user = {
+        user_id: response.data.user.user_id,
+        email: response.data.user.email,
+        nickname: response.data.user.nickname,
+      };
+      console.log(user);
+
+      return user;
+    });
   } catch (err) {
-    console.log(thunkAPI.rejectWithValue());
-    return thunkAPI.rejectWithValue(err.response.message);
+    console.log(err.response.data.message);
+    //console.log(thunkAPI.rejectWithValue(err.response.data.message));
+    return thunkAPI.rejectWithValue(err.response.data.message);
   }
 });
 
 const user = createSlice({
-  name: 'userReducer',
-  initialState: {
-    isLogin: false,
-    nickname: '',
+  name: 'user',
+  initialState,
+  reducers: {
+    setUserInfo: (state, action) => {
+      console.log(action.payload);
+      state.email = action.payload;
+      state.isLogin = action.payload;
+    },
   },
   extraReducers: {
     [signupDB.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [signupDB.fulfilled]: (state, action) => {
+    // [signupDB.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    // },
+    // [signupDB.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    // },
+    [signin.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [signin.fulfilled]: (state, action) => {
       state.isLoading = false;
     },
-    [signupDB.rejected]: (state, action) => {
-      state.isLoading = false;
+    // [signin.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    // },
+    [auth.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [auth.fulfilled]: (state, action) => {
+      state.isLogin = true;
+      console.log(action.payload);
+      //state.nickname = action.payload.nickname;
     },
   },
 });
