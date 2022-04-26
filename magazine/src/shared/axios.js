@@ -2,12 +2,14 @@ import { getTokenFromCookie } from './cookie';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
+  //withCredentials: true,
+  // baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
   // baseURL: import.meta.env.VITE_API_BASE_URL_KWS,
   // baseURL: import.meta.env.VITE_API_BASE_URL_JHY,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     Accept: 'application/json',
+    'Access-Control-Allow-Origin': '*',
     // Authorization: '',
   },
 });

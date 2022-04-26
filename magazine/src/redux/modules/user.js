@@ -20,9 +20,6 @@ export const signin = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       await apis.signin(data).then((response) => {
-        const {
-          data: { ok },
-        } = response;
         console.log(response);
         //setCookie(response.data.token);
         return { ok };
