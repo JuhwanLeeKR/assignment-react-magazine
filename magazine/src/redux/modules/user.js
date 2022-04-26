@@ -84,6 +84,7 @@ const user = createSlice({
     logout: (state) => {
       removeTokenFromCookie();
       state.nickname = null;
+      state.email = null;
       state.isLogin = false;
     },
   },
@@ -91,28 +92,27 @@ const user = createSlice({
     [signupDB.pending]: (state, action) => {
       state.isLoading = true;
     },
-    // [signupDB.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    // },
-    // [signupDB.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    // },
+    [signupDB.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    },
+    [signupDB.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
     [signin.pending]: (state, action) => {
       state.isLoading = true;
     },
     [signin.fulfilled]: (state, action) => {
       state.isLoading = false;
     },
-    // [signin.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    // },
+    [signin.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
     [auth.pending]: (state, action) => {
       state.isLoading = true;
     },
     [auth.fulfilled]: (state, action) => {
       state.isLogin = true;
-      console.log(action.payload);
-      //state.nickname = action.payload.nickname;
+      state.isLoading = false;
     },
   },
 });
