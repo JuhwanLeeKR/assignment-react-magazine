@@ -2,10 +2,8 @@ import { getTokenFromCookie } from './cookie';
 import axios from 'axios';
 
 const api = axios.create({
-  //withCredentials: true,
+  // proxy 설정을 통해 통신을 하므로 baseURL 설정을 할 필요가 없게됩니다.
   // baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
-  // baseURL: import.meta.env.VITE_API_BASE_URL_KWS,
-  // baseURL: import.meta.env.VITE_API_BASE_URL_JHY,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     Accept: 'application/json',

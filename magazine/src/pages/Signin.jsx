@@ -7,7 +7,7 @@ import { signin } from '../redux/modules/user';
 
 import { getTokenFromCookie } from '../shared/cookie';
 
-const Signin = () => {
+const Signin = (props) => {
   const {
     register,
     handleSubmit,
@@ -18,16 +18,15 @@ const Signin = () => {
   const token = getTokenFromCookie('token');
   const isLogin = useSelector((state) => state);
 
-  if (token) {
-    window.alert('이미 로그인이 되어있습니다.');
-    console.log(isLogin);
-    // navigate('/', { replace: true });
-  }
+  // if (token) {
+  //   //window.alert('이미 로그인이 되어있습니다.');
+  //   console.log(isLogin);
+  //   // navigate('/', { replace: true });
+  // }
 
   const submitHandler = ({ email, password }) => {
-    dispatch(signin({ email, password })).then(() => {
-      navigate('/');
-    });
+    const data = { email, password };
+    dispatch(signin({ data, navigate }));
   };
   return (
     <FormWrapper>

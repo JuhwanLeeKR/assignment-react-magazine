@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apis } from '../../shared/axios';
-import { setCookie } from '../../shared/cookie';
 
 export const signupDB = createAsyncThunk(
   'user/signup',
@@ -17,12 +16,13 @@ export const signupDB = createAsyncThunk(
 
 export const signin = createAsyncThunk(
   'user/signin',
-  async (data, thunkAPI) => {
+  async ({ data, navigate }, thunkAPI) => {
+    console.log(data, navigate);
     try {
       await apis.signin(data).then((response) => {
         console.log(response);
-        //setCookie(response.data.token);
-        return { ok };
+        navigate('/');
+        alert('로그인 완료!');
       });
     } catch (err) {
       alert(thunkAPI.rejectWithValue(err.response.data).payload.message);
