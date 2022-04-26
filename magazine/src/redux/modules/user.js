@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apis } from '../../shared/axios';
-import { getTokenFromCookie } from '../../shared/cookie';
+import { getTokenFromCookie, removeTokenFromCookie } from '../../shared/cookie';
 
 const initialState = {
   email: null,
@@ -39,6 +39,18 @@ export const signin = createAsyncThunk(
   }
 );
 
+export const signout = createAsyncThunk(
+  'user/signout',
+  async (dispatch, navigate) => {
+    try {
+      dispatch(user.actions.logout());
+      navigate('/', { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 export const auth = createAsyncThunk('user/auth', async (_, thunkAPI) => {
   try {
     const token = getTokenFromCookie();
@@ -68,6 +80,11 @@ const user = createSlice({
       console.log(action.payload);
       state.email = action.payload;
       state.isLogin = action.payload;
+    },
+    logout: (state) => {
+      removeTokenFromCookie();
+      state.nickname = null;
+      state.isLogin = false;
     },
   },
   extraReducers: {

@@ -24,7 +24,6 @@ function App() {
   const isToken = getTokenFromCookie();
   const user = useSelector((state) => state.user);
 
-  console.log(user);
   useEffect(() => {
     isToken && dispatch(auth());
   }, [isToken, dispatch]);
