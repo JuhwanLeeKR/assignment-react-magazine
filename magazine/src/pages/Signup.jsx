@@ -33,7 +33,9 @@ const Signup = () => {
       );
       return;
     }
-    dispatch(signupDB({ email, nickname, password }));
+    const data = { email, nickname, password };
+    dispatch(signupDB({ data, navigate }));
+    // dispatch(signin({ data, navigate }));
   };
   return (
     <FormWrapper>

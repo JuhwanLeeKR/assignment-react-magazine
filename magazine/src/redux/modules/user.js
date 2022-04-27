@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apis } from '../../shared/axios';
-import { getTokenFromCookie, removeTokenFromCookie } from '../../shared/cookie';
+import {
+  setCookie,
+  getTokenFromCookie,
+  removeTokenFromCookie,
+} from '../../shared/cookie';
 
 const initialState = {
   email: null,
@@ -11,9 +15,12 @@ const initialState = {
 
 export const signupDB = createAsyncThunk(
   'user/signup',
-  async (data, thunkAPI) => {
+  async ({ data, navigate }, thunkAPI) => {
     try {
-      await apis.signup(data);
+      await apis.signup(data).then((response) => {
+        navigate('/', { replace: true });
+        alert('회원가입 완료!');
+      });
       return;
     } catch (err) {
       alert(thunkAPI.rejectWithValue(err.response.data).payload.message);
@@ -28,7 +35,8 @@ export const signin = createAsyncThunk(
     //console.log(data, navigate);
     try {
       await apis.signin(data).then((response) => {
-        //console.log(response);
+        //console.log(response.data.token);
+        setCookie(response.data.token);
         navigate('/', { replace: true });
         alert('로그인 완료!');
       });

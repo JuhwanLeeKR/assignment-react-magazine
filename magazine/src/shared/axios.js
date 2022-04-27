@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // proxy 설정을 통해 통신을 하므로 baseURL 설정을 할 필요가 없게됩니다.
-  // baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
+  baseURL: import.meta.env.VITE_API_BASE_URL_CWY,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     Accept: 'application/json',
@@ -19,7 +19,7 @@ const setHeaderAuthorization = (token) => {
 api.interceptors.request.use((config) => {
   const token = getTokenFromCookie();
   token && setHeaderAuthorization(token);
-  console.log(api.defaults);
+  // console.log(api.defaults);
   // console.log(token);
   return config;
 });
